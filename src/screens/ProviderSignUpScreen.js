@@ -48,7 +48,7 @@ const SignUpScreen = ({ navigation }) => {
         >
             <ScrollView contentContainerStyle={styles.scrollView}>
                 <View style={styles.container}>
-                    <Text style={styles.title}>Sign Up</Text>
+                    <Text style={styles.title}>SIGN UP</Text>
                     <TextInput
                         placeholder="Full Name"
                         value={userInfo.name}
@@ -129,7 +129,7 @@ const styles = StyleSheet.create({
     },
     container: {
         flexGrow: 1,
-        backgroundColor: '#1A1A24',
+        backgroundColor: '#f0f0f0',
         alignItems: 'center',
         justifyContent: 'center',
         paddingHorizontal: 20,
@@ -138,7 +138,7 @@ const styles = StyleSheet.create({
     title: {
         fontSize: 30,
         fontWeight: 'bold',
-        color: '#f0f0f0',
+        color: '#708DA1',
         alignSelf: 'flex-start',
         marginLeft: 20,
         marginBottom: 30,
@@ -147,17 +147,17 @@ const styles = StyleSheet.create({
         width: '100%',
         paddingHorizontal: 20,
         paddingVertical: 15,
-        borderColor: '#343434',
+        borderColor: '#E0E0E0',
         borderWidth: 2,
         borderRadius: 10,
         marginBottom: 20,
         fontSize: 16,
-        backgroundColor: '#121212',
-        color: '#f0f0f0',
+        backgroundColor: '#E0E0E0',
+        color: '#708DA1',
     },
     button: {
         width: '100%',
-        backgroundColor: '#7655FA',
+        backgroundColor: '#708DA1',
         padding: 15,
         borderRadius: 10,
         alignItems: 'center',
@@ -178,10 +178,10 @@ const styles = StyleSheet.create({
     loginText: {
         marginRight: 10,
         fontSize: 16,
-        color: '#aaa',
+        color: '#708DA1',
     },
     loginButton: {
-        color: '#f0f0f0',
+        color: '#708DA1',
         fontSize: 16,
         fontWeight: '600',
     },
