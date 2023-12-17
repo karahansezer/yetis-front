@@ -32,7 +32,7 @@ const ProviderSignIn = () => {
         <View style={styles.container}>
             <Text style={styles.title}>PROVIDER LOG IN</Text>
             <TextInput
-                placeholder="Phone Number"
+                placeholder="E-mail"
                 placeholderTextColor="#616983" // Set placeholder text color here
                 value={credentials.phone}
                 onChangeText={(value) => setCredentials({ ...credentials,email: value })}

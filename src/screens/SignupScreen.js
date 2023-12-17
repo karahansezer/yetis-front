@@ -32,14 +32,6 @@ const SignUpScreen = ({ navigation }) => {
                 style={styles.input}
             />
             <TextInput
-                placeholder="Phone Number"
-                placeholderTextColor="#616983" // Set placeholder text color here
-                value={userInfo.phone}
-                onChangeText={(value) => setUserInfo({ ...userInfo, phone: value })}
-                style={styles.input}
-                keyboardType="phone-pad"
-            />
-            <TextInput
                 placeholder="Email"
                 placeholderTextColor="#616983" // Set placeholder text color here
                 value={userInfo.email}
@@ -47,6 +39,14 @@ const SignUpScreen = ({ navigation }) => {
                 style={styles.input}
                 keyboardType="email-address"
                 autoCapitalize="none"
+            />
+            <TextInput
+                placeholder="Phone Number"
+                placeholderTextColor="#616983" // Set placeholder text color here
+                value={userInfo.phone}
+                onChangeText={(value) => setUserInfo({ ...userInfo, phone: value })}
+                style={styles.input}
+                keyboardType="phone-pad"
             />
             <TextInput
                 placeholder="Password"
