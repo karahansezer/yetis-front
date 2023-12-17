@@ -17,16 +17,15 @@ const ServiceProvidersScreen = ({ route, navigation }) => {
         loadProviders();
     }, [serviceName]);
 
-    const navigateToProviderDetails = (providerId, selectedServiceName) => {
-        navigation.navigate('ServiceProviderDetails', { providerId, selectedServiceName });
+    const navigateToProviderDetails = (providerId, serviceId, selectedServiceName) => {
+        navigation.navigate('ServiceProviderDetails', { providerId,serviceId ,selectedServiceName });
     };
     const renderItem = ({ item }) => (
-        <TouchableOpacity style={styles.card} onPress={() => navigateToProviderDetails(item.id, serviceName)}>
+        <TouchableOpacity style={styles.card} onPress={() => navigateToProviderDetails(item.providerId, item.serviceId, serviceName)}>
             <Image source={{ uri: 'https://img.freepik.com/free-photo/man-electrical-technician-working-switchboard-with-fuses_169016-24062.jpg?size=626&ext=jpg&ga=GA1.1.1546980028.1702598400&semt=ais' }} style={styles.image} />
-            <Text style={styles.cardTitle}>{item.name}</Text>
+            <Text style={styles.cardTitle}>{item.providerName}</Text>
             <Text>{item.description}</Text>
             <Text>Distance: {item.distance.toFixed(2)} km</Text>
-            {/* Add more details as required */}
             </TouchableOpacity>
     );
 
@@ -36,7 +35,7 @@ const ServiceProvidersScreen = ({ route, navigation }) => {
             <FlatList
                 data={providers}
                 renderItem={renderItem}
-                keyExtractor={(item) => item.id.toString()}
+                keyExtractor={(item) => item.providerId.toString()}
                 contentContainerStyle={styles.list}
             />
         </View>

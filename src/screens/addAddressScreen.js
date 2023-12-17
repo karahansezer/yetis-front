@@ -4,6 +4,8 @@ import { AuthContext } from '../contexts/AuthContext'; // Adjust the import path
 import { getUserAddresses, addUserAddress } from '../api/userService'; // Adjust the import path
 import * as Location from 'expo-location';
 import MapView, { Marker } from 'react-native-maps';
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const AddAddressPage = () => {
     const [addresses, setAddresses] = useState([]);
@@ -66,11 +68,18 @@ const AddAddressPage = () => {
         }
     };
 
+    const handleSelectAddress = async (address) => {
+        await AsyncStorage.setItem('selectedAddress', JSON.stringify(address));
+        console.log("Address selected:", address)
+        Alert.alert('Address Selected', 'Your address has been updated.');
+    };
+
     const renderAddressItem = ({ item }) => (
-        <View style={styles.addressCard}>
+        <TouchableOpacity 
+            style={styles.addressCard} 
+            onPress={() => handleSelectAddress(item)}>
             <Text style={styles.addressText}>Building: {item.buildingNo}, Flat: {item.flatNo}</Text>
-            {/* Additional address details can be displayed here */}
-        </View>
+        </TouchableOpacity>
     );
 
     return (

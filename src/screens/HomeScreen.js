@@ -11,12 +11,42 @@ const HomeScreen = () => {
     const { userInfo } = useContext(AuthContext);
     const navigation = useNavigation();
 
+    const getGeoreversedAddress = async (latitude, longitude) => {
+        try {
+          const apiKey = 'AIzaSyB1kNalSleV7Vf8A-5OyKykMbNv8r-HhDY'; // Replace with your actual Google Geocoding API key
+          const response = await fetch(`https://maps.googleapis.com/maps/api/geocode/json?latlng=${latitude},${longitude}&key=${apiKey}`);
+            const data = await response.json();
+
+            let city = '';
+            let street = '';
+
+            if (data.results.length > 0) {
+                const addressComponents = data.results[0].address_components;
+
+                addressComponents.forEach(component => {
+                    if (component.types.includes('locality')) {
+                        city = component.long_name;
+                    }
+                    if (component.types.includes('route')) {
+                        street = component.long_name;
+                    }
+                });
+            }
+
+            return [street, city].filter(Boolean).join(', ') || 'Address not found';
+        } catch (error) {
+            console.error('Error fetching address:', error);
+            return 'Address not found';
+        }
+    };
+
     const loadSelectedAddress = async () => {
         try {
             const addressString = await AsyncStorage.getItem('selectedAddress');
             if (addressString) {
                 const address = JSON.parse(addressString);
-                setSelectedAddress(address);
+                const georeversedAddress = await getGeoreversedAddress(address.lat, address.lon);
+                setSelectedAddress({...address, georeversedAddress});
             }
         } catch (error) {
             console.error('Error reading selected address:', error);
@@ -59,7 +89,9 @@ const HomeScreen = () => {
             <TouchableOpacity style={styles.addressContainer} onPress={() => navigation.navigate('AddAddress')}>
                 {selectedAddress ? (
                     <Text style={styles.addressText}>
-                        Address: {selectedAddress.street ? selectedAddress.street + ', ' : ''}Building No - {selectedAddress.buildingNo}, Flat No - {selectedAddress.flatNo}
+                        Address: {selectedAddress.georeversedAddress}
+                        {selectedAddress.buildingNo ? `, Building No - ${selectedAddress.buildingNo}` : ''}
+                        {selectedAddress.flatNo ? `, Flat No - ${selectedAddress.flatNo}` : ''}
                     </Text>
                 ) : (
                     <Text style={styles.addressText}>No address selected. Tap to add.</Text>

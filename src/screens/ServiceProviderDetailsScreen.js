@@ -1,13 +1,15 @@
 import React, { useState, useEffect } from 'react';
 import {
-  View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Modal
+  View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Modal, Alert
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { fetchProviderById } from '../api/providerService'; // Adjust the import path
-// Import any other necessary modules
+import { createAppointment } from '../api/appointmentService'; // Adjust import path
+import AsyncStorage from '@react-native-async-storage/async-storage';
+
 
 const ServiceProviderDetailsScreen = ({ route }) => {
-  const { providerId } = route.params;
+  const { providerId, serviceId, selectedServiceName } = route.params; // Get providerId and serviceId from navigation params
   const [provider, setProvider] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [date, setDate] = useState(new Date());
@@ -32,13 +34,40 @@ const ServiceProviderDetailsScreen = ({ route }) => {
     setTime(currentTime);
   };
 
-  const handleMakeAppointment = () => {
-    // Logic to handle appointment creation goes here
-    console.log("Appointment Date:", date);
-    console.log("Appointment Time:", time);
-    setModalVisible(false);
-    // Add more logic as required
+  const handleMakeAppointment = async () => {
+    try {
+      const customerInfo = await AsyncStorage.getItem('userInfo');
+      const selectedAddress = await AsyncStorage.getItem('selectedAddress');
+      const customerId = JSON.parse(customerInfo)?.id;
+      const addressInfo = JSON.parse(selectedAddress);
+  
+      if (!customerId || !addressInfo) {
+        Alert.alert("Error", "Required information is missing.");
+        return;
+      }
+  
+      const appointmentDetails = {
+        customerId,
+        serviceProviderId: providerId,
+        serviceId: serviceId,
+        date: date.toISOString().split('T')[0], // Format date
+        time: time.toISOString().split('T')[1].split('.')[0], // Format time
+        status: 'waiting',
+        flatNo: addressInfo.flatNo,
+        buildingNo: addressInfo.buildingNo,
+        lat: addressInfo.lat,
+        lon: addressInfo.lon
+      };
+  
+      const response = await createAppointment(appointmentDetails);
+      setModalVisible(false);
+      Alert.alert("Appointment Created", "Your appointment has been successfully created.");
+    } catch (error) {
+      console.error("Error creating appointment:", error);
+      Alert.alert("Error", "Failed to create appointment");
+    }
   };
+  
 
   if (!provider) {
     return <Text style={styles.loading}>Loading...</Text>;
