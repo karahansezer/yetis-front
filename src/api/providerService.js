@@ -12,3 +12,25 @@ export const fetchProviderById = async (providerId) => {
         console.error("There was a problem fetching provider details:", error);
     }
 };
+
+export const updateServiceProviderProfile = async (providerId, updatedData, token) => {
+    console.log(providerId, updatedData)
+    try {
+        const response = await fetch(`${API_BASE_URL}/service-provider/update/${providerId}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedData) // Spread the updatedData object which contains the provider's updated information
+        });
+
+        if (!response.ok) {
+            console.log(response)
+            throw new Error('Error updating provider profile');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("Error updating service provider profile:", error);
+        throw error;
+    }
+};

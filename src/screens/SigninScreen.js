@@ -8,7 +8,7 @@ const SignInScreen = () => {
     const { signIn } = useContext(AuthContext); // get the signIn function from the AuthContext
     const navigation = useNavigation();
     const [credentials, setCredentials] = useState({
-        email: '', // changed from email to phone
+        email: '', 
         password: '',
     });
 

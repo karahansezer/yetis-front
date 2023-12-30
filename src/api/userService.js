@@ -44,3 +44,26 @@ export const addUserAddress = async (userId, lat, lon, buildingNo, flatNo) => {
         throw error;
     }
 };
+
+export const updateUserProfile = async (userId, updatedData, token) => {
+    try {
+        const response = await fetch(`${API_BASE_URL}/update`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+                userId: userId,
+                ...updatedData // Spread the updatedData object which contains name, email, and phone
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error('Error updating profile');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("Error updating user profile:", error);
+        throw error;
+    }
+};

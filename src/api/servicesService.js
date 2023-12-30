@@ -30,3 +30,25 @@ export const fetchProvidersByService = async (serviceName, latitude, longitude) 
         console.error("There was a problem fetching service providers:", error);
     }
 };
+
+export const createServiceForProvider = async (providerId, serviceName) => {
+    console.log(JSON.stringify({ serviceName }))
+    try {
+        const response = await fetch(`${API_BASE_URL}/service/providers/${providerId}/services`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ serviceName }) // Send the service name as part of the request body
+        });
+
+        if (!response.ok) {
+            const errorData = await response.json();
+            throw new Error(errorData.message || 'Network response was not ok');
+        }
+        return await response.json();
+    } catch (error) {
+        console.error("There was a problem creating the service:", error);
+        throw error; // re-throw the error to handle it in the component
+    }
+};

@@ -1,24 +1,29 @@
 import React, { useState, useEffect } from 'react';
 import {
-  View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Modal, Alert
+  View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, Modal, Alert, TextInput
 } from 'react-native';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { fetchProviderById } from '../api/providerService'; // Adjust the import path
 import { createAppointment } from '../api/appointmentService'; // Adjust import path
 import AsyncStorage from '@react-native-async-storage/async-storage';
-
+import { getCommentsForProvider, createCommentForProvider } from '../api/commentService'; // Import comment-related services
 
 const ServiceProviderDetailsScreen = ({ route }) => {
-  const { providerId, serviceId, selectedServiceName } = route.params; // Get providerId and serviceId from navigation params
+  const { providerId, serviceId, selectedServiceName } = route.params;
   const [provider, setProvider] = useState(null);
   const [modalVisible, setModalVisible] = useState(false);
   const [date, setDate] = useState(new Date());
   const [time, setTime] = useState(new Date());
+  const [comments, setComments] = useState([]);
+  const [newComment, setNewComment] = useState('');
 
   useEffect(() => {
     const loadProviderDetails = async () => {
-      const data = await fetchProviderById(providerId);
-      setProvider(data);
+      const providerData = await fetchProviderById(providerId);
+      setProvider(providerData);
+
+      const commentsData = await getCommentsForProvider(providerId);
+      setComments(commentsData);
     };
 
     loadProviderDetails();
@@ -33,6 +38,35 @@ const ServiceProviderDetailsScreen = ({ route }) => {
     const currentTime = selectedTime || time;
     setTime(currentTime);
   };
+
+
+const timeSince = (dateString) => {
+  const date = new Date(dateString);
+  const seconds = Math.floor((new Date() - date) / 1000);
+
+  let interval = seconds / 31536000; // Number of seconds in one year
+
+  if (interval > 1) {
+    return Math.floor(interval) + " years";
+  }
+  interval = seconds / 2592000; // Number of seconds in one month
+  if (interval > 1) {
+    return Math.floor(interval) + " minutes";
+  }
+  interval = seconds / 86400; // Number of seconds in one day
+  if (interval > 1) {
+    return Math.floor(interval) + " days";
+  }
+  interval = seconds / 3600; // Number of seconds in one hour
+  if (interval > 1) {
+    return Math.floor(interval) + " hours";
+  }
+  interval = seconds / 60; // Number of seconds in one minute
+  if (interval > 1) {
+    return Math.floor(interval) + " minutes";
+  }
+  return Math.floor(seconds) + " seconds";
+};
 
   const handleMakeAppointment = async () => {
     try {
@@ -52,7 +86,7 @@ const ServiceProviderDetailsScreen = ({ route }) => {
         serviceId: serviceId,
         date: date.toISOString().split('T')[0], // Format date
         time: time.toISOString().split('T')[1].split('.')[0], // Format time
-        status: 'waiting',
+        status: 'pending approval',
         flatNo: addressInfo.flatNo,
         buildingNo: addressInfo.buildingNo,
         lat: addressInfo.lat,
@@ -67,19 +101,36 @@ const ServiceProviderDetailsScreen = ({ route }) => {
       Alert.alert("Error", "Failed to create appointment");
     }
   };
-  
+  const handleMakeComment = async () => {
+    try {
+      const userInfo = JSON.parse(await AsyncStorage.getItem('userInfo'));
+      if (!userInfo || !userInfo.id) {
+        Alert.alert("Error", "User information not found.");
+        return;
+      }
+
+      await createCommentForProvider(userInfo.id, providerId, newComment);
+      setNewComment('');
+      Alert.alert("Comment Submitted", "Your comment has been submitted successfully.");
+
+      // Reload comments
+      const updatedComments = await getCommentsForProvider(providerId);
+      setComments(updatedComments);
+    } catch (error) {
+      console.error("Error creating comment:", error);
+      Alert.alert("Error", "Failed to submit comment");
+    }
+  };
 
   if (!provider) {
     return <Text style={styles.loading}>Loading...</Text>;
   }
-
   return (
     <ScrollView style={styles.container}>
-      <Image source={{ uri: provider.imageUrl }} style={styles.image} />
+      <Image source={{ uri:   'https://img.freepik.com/free-photo/man-electrical-technician-working-switchboard-with-fuses_169016-24062.jpg?size=626&ext=jpg&ga=GA1.1.1546980028.1702598400&semt=ais' }} style={styles.image} />
       <View style={styles.content}>
         <Text style={styles.name}>{provider.name}</Text>
         <Text style={styles.description}>{provider.description}</Text>
-        {/* Add more provider details as needed */}
         <TouchableOpacity
           style={styles.button}
           onPress={() => setModalVisible(true)}>
@@ -87,6 +138,7 @@ const ServiceProviderDetailsScreen = ({ route }) => {
         </TouchableOpacity>
       </View>
 
+      {/* Make Appointment Modal */}
       <Modal
         animationType="slide"
         transparent={true}
@@ -114,6 +166,30 @@ const ServiceProviderDetailsScreen = ({ route }) => {
           </View>
         </View>
       </Modal>
+
+      {/* Comment Section */}
+      <View style={styles.commentSection}>
+        <TextInput
+          style={styles.commentInput}
+          value={newComment}
+          onChangeText={setNewComment}
+          placeholder="Write a comment..."
+          multiline
+        />
+        <TouchableOpacity style={styles.commentButton} onPress={handleMakeComment}>
+          <Text style={styles.commentButtonText}>Submit Comment</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Display Comments */}
+      <View style={styles.commentsContainer}>
+        {comments.map((comment, index) => (
+          <View key={index} style={styles.comment}>
+            <Text style={styles.commentText}>{comment.content}</Text>
+            <Text style={styles.commentTime}>{timeSince(comment.createdAt)}</Text>
+          </View>
+        ))}
+      </View>
     </ScrollView>
   );
 };
@@ -193,6 +269,41 @@ const styles = StyleSheet.create({
     color: 'white',
     fontWeight: 'bold',
     textAlign: 'center',
+  },
+  commentSection: {
+    padding: 10,
+  },
+  commentInput: {
+    borderWidth: 1,
+    borderColor: '#ccc',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 10,
+  },
+  commentButton: {
+    backgroundColor: '#007BFF',
+    padding: 10,
+    borderRadius: 5,
+    alignItems: 'center',
+  },
+  commentButtonText: {
+    color: 'white',
+    fontWeight: 'bold',
+  },
+  commentsContainer: {
+    padding: 10,
+  },
+  comment: {
+    backgroundColor: '#f0f0f0',
+    padding: 10,
+    borderRadius: 5,
+    marginBottom: 10,
+    display: 'flex',
+    justifyContent: 'space-between',
+    flexDirection: 'row',
+  },
+  commentText: {
+    fontSize: 14,
   },
 });
 
