@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://192.168.1.106:3001"; // Replace with your server's base URL
+const API_BASE_URL = "http://3.88.103.123:3001"; // Replace with your server's base URL
 
 // Function to sign up a user
 export const signupUser = async (userInfo) => {

@@ -1,4 +1,4 @@
-const API_BASE_URL = "http://192.168.1.106:3001"; // Replace with your actual API base URL
+const API_BASE_URL = "http://3.88.103.123:3001"; // Replace with your actual API base URL
 
 export const fetchUniqueServices = async () => {
     try {

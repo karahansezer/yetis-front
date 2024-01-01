@@ -1,9 +1,9 @@
-const API_BASE_URL = "http://192.168.1.106:3001/service-provider"; // Replace with your server's base URL
+const API_BASE_URL = "http://3.88.103.123:3001"; // Replace with your server's base URL
 
 // Function to register a new service provider
 export const registerServiceProvider = async (serviceProviderInfo) => {
     try {
-        const response = await fetch(`${API_BASE_URL}/register`, {
+        const response = await fetch(`${API_BASE_URL}/service-provider/register`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
@@ -26,7 +26,7 @@ export const registerServiceProvider = async (serviceProviderInfo) => {
 // Function to log in a service provider
 export const loginServiceProvider = async (credentials) => {
     try {
-        const response = await fetch(`${API_BASE_URL}/login`, {
+        const response = await fetch(`${API_BASE_URL}/service-provider/login`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',

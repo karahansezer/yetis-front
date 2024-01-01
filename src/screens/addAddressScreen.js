@@ -88,7 +88,7 @@ const AddAddressPage = () => {
                 data={addresses}
                 renderItem={renderAddressItem}
                 keyExtractor={(item, index) => index.toString()}
-                ListEmptyComponent={<Text>No addresses found. Please add one.</Text>}
+                ListEmptyComponent={<Text>No adresses found. Please add one.</Text>}
                 contentContainerStyle={styles.addressList}
             />
             <TouchableOpacity style={styles.addButton} onPress={() => setModalVisible(true)}>
@@ -148,6 +148,8 @@ const styles = StyleSheet.create({
     },
     addressList: {
         paddingHorizontal: 10,
+        marginTop: 50,
+        fontSize: 16,
     },
     addressCard: {
         backgroundColor: '#e0e0e0',
@@ -159,7 +161,7 @@ const styles = StyleSheet.create({
         fontSize: 16,
     },
     addButton: {
-        backgroundColor: '#4CAF50',
+        backgroundColor: '#708DA1',
         padding: 15,
         margin: 10,
         borderRadius: 5,
@@ -178,7 +180,7 @@ const styles = StyleSheet.create({
     },
     modalView: {
         margin: 20,
-        backgroundColor: 'white',
+        backgroundColor: '#708DA1',
         borderRadius: 20,
         padding: 35,
         alignItems: 'center',
@@ -197,6 +199,8 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         padding: 10,
         width: 200,
+        backgroundColor: '#E0E0E0', // Set the background color to match the container's bg color
+        color: '#708DA1', // Text color for input fields
     },
     mapStyle: {
         width: Dimensions.get('window').width * 0.8,

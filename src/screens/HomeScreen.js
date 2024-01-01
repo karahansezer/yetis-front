@@ -111,10 +111,10 @@ const HomeScreen = () => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#fff',
+        backgroundColor: '#f0f0f0',
     },
     addressContainer: {
-        backgroundColor: '#f8f8f8',
+        backgroundColor: '#708DA1',
         padding: 15,
         justifyContent: 'center',
         alignItems: 'center',
@@ -122,13 +122,15 @@ const styles = StyleSheet.create({
         borderBottomColor: '#ddd',
     },
     addressText: {
-        fontSize: 16,
+        paddingTop: 60,
+        fontSize: 18,
         fontWeight: 'bold',
-        color: '#333',
+        color: 'white',
     },
     servicesList: {
-        paddingHorizontal: 10,
-        paddingTop: 10,
+        
+        paddingHorizontal: 20,
+        paddingTop: 100,
     },
     serviceCard: {
         flex: 1,
@@ -136,7 +138,7 @@ const styles = StyleSheet.create({
         height: 150,
         justifyContent: 'center',
         alignItems: 'center',
-        backgroundColor: '#e0e0e0',
+        backgroundColor: '#708DA1',
         borderRadius: 10,
         shadowColor: '#000',
         shadowOffset: { width: 0, height: 2 },
@@ -147,7 +149,7 @@ const styles = StyleSheet.create({
     serviceCardText: {
         fontSize: 16,
         fontWeight: 'bold',
-        color: '#333',
+        color: 'white',
     },
 });
 

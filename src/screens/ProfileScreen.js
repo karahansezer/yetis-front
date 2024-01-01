@@ -264,33 +264,44 @@ const styles = StyleSheet.create({
   container: {
     flexGrow: 1,
     padding: 20,
+    backgroundColor: '#f0f0f0',
     justifyContent: 'flex-start', // Changed from 'center' to 'flex-start'
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 20,
+    fontSize: 30, // Slightly larger font size
+    marginTop: 30,
+    fontWeight: 'bold', // Bold font weight
+    color: '#708DA1', // Slightly off-white color for the text
+    alignSelf: 'flex-start', // Align to the left
+    marginLeft: 30, // Adjust the left margin as needed
+    marginBottom: 50, // Increased space below the header
   },
   subtitle: {
     fontSize: 20,
     fontWeight: 'bold',
-    marginTop: 10,
+    color: '#708DA1',
+    marginTop: 30,
     marginBottom: 5,
   },
   input: {
-    borderWidth: 1,
-    borderColor: 'gray',
-    borderRadius: 5,
-    padding: 10,
-    marginBottom: 10,
+    width: '100%',
+    paddingHorizontal: 20, // Increased horizontal padding
+    paddingVertical: 15,
+    borderColor: '#E0E0E0', // Darker border color
+    borderWidth: 2,
+    borderRadius: 10, // Rounded corners for the input
+    marginBottom: 20, // Increased space between inputs
     fontSize: 16,
+    backgroundColor: '#E0E0E0', // Set the background color to match the container's bg color
+    color: '#708DA1', // Text color for input fields
+
   },
   button: {
-    backgroundColor: 'blue',
+    backgroundColor: '#708DA1',
     padding: 15,
     borderRadius: 5,
     alignItems: 'center',
-    marginTop: 10,
+    marginTop: 90,
   },
   buttonText: {
     color: 'white',
@@ -302,18 +313,20 @@ const styles = StyleSheet.create({
     justifyContent: 'space-around',
   },
   serviceCard: {
-    backgroundColor: '#e0e0e0',
+    backgroundColor: '#E0E0E0',
     borderRadius: 10,
     padding: 10,
     margin: 5,
   },
   serviceCardText: {
     fontSize: 14,
+    color: '#708DA1',
   },
   buttonGroup: {
     flexDirection: 'row',
     justifyContent: 'space-evenly',
     marginTop: 10,
+    color: '#354F61',
   },
   addServiceContainer: {
     marginTop: 10,
