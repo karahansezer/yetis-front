@@ -209,7 +209,8 @@ const styles = StyleSheet.create({
   image: {
     width: '100%',
     height: 200,
-    borderRadius: 10,
+    borderRadius: 30,
+    marginTop: 20,
   },
   content: {
     padding: 15,
@@ -225,7 +226,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   button: {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#708DA1',
     paddingVertical: 12,
     paddingHorizontal: 20,
     borderRadius: 5,
@@ -244,7 +245,7 @@ const styles = StyleSheet.create({
     marginTop: 22,
   },
   modalView: {
-    margin: 20,
+    marginTop: 20,
     backgroundColor: 'white',
     borderRadius: 20,
     padding: 35,
@@ -259,7 +260,7 @@ const styles = StyleSheet.create({
     elevation: 5,
   },
   confirmButton: {
-    backgroundColor: '#007bff',
+    backgroundColor: '#708DA1',
     borderRadius: 20,
     padding: 10,
     elevation: 2,
@@ -281,7 +282,7 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   commentButton: {
-    backgroundColor: '#007BFF',
+    backgroundColor: '#708DA1',
     padding: 10,
     borderRadius: 5,
     alignItems: 'center',

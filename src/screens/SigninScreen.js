@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
+import { View, Text, TextInput, TouchableOpacity, StyleSheet, Alert, TouchableWithoutFeedback, Keyboard , Image } from 'react-native';
 import { useNavigation } from '@react-navigation/native';
 import { signinUser } from '../api/authService'; // import the signin function
 import { AuthContext } from '../contexts/AuthContext';
@@ -29,7 +29,13 @@ const SignInScreen = () => {
 
     return (
         <TouchableWithoutFeedback onPress={Keyboard.dismiss} accessible={false}>
+        
+        
         <View style={styles.container}>
+            <Image 
+                source={require('../../assets/logo.png')} // Path to your logo image
+                style={styles.logo}
+            />
             <Text style={styles.title}>LOG IN</Text>
             <TextInput
                 placeholder="E-mail"
@@ -74,6 +80,14 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingHorizontal: 20,
+  },
+  logo: {
+    position: 'absolute', // Positioning the logo at the top left
+    top: 40, 
+    left: 90,
+    width: 150, // Adjust the width and height as needed
+    height: 150,
+    margin: 20, // Adding margin to give some space from the edge
   },
   title: {
       fontSize: 30, // Slightly larger font size

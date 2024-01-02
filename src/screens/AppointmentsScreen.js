@@ -155,11 +155,12 @@ const AppointmentsScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#f5f5f5',
+    backgroundColor: '#f0f0f0',
     padding: 10,
   },
   card: {
-    backgroundColor: '#fff',
+    backgroundColor: '#708DA1',
+    top: 40,
     borderRadius: 8,
     padding: 15,
     marginBottom: 10,
@@ -189,7 +190,7 @@ const styles = StyleSheet.create({
   status: {
     fontSize: 16,
     fontWeight: '500',
-    color: '#007bff',
+    color: 'red',
     marginBottom: 10,
   },
   buttonContainer: {

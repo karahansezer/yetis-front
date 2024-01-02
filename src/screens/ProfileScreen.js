@@ -268,13 +268,13 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-start', // Changed from 'center' to 'flex-start'
   },
   title: {
-    fontSize: 30, // Slightly larger font size
-    marginTop: 30,
-    fontWeight: 'bold', // Bold font weight
-    color: '#708DA1', // Slightly off-white color for the text
+    fontSize: 30, 
+    marginTop: 50,
+    fontWeight: 'bold', 
+    color: '#708DA1', 
     alignSelf: 'flex-start', // Align to the left
-    marginLeft: 30, // Adjust the left margin as needed
-    marginBottom: 50, // Increased space below the header
+    marginLeft: 30,
+    marginBottom: 30, 
   },
   subtitle: {
     fontSize: 20,
@@ -301,7 +301,7 @@ const styles = StyleSheet.create({
     padding: 15,
     borderRadius: 5,
     alignItems: 'center',
-    marginTop: 90,
+    marginTop: 20,
   },
   buttonText: {
     color: 'white',

@@ -45,7 +45,7 @@ const ServiceProvidersScreen = ({ route, navigation }) => {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: '#f5f5f5',
+        backgroundColor: '#f0f0f0',
     },
     headerTitle: {
         fontSize: 22,
@@ -67,6 +67,7 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.1,
         shadowRadius: 4,
         elevation: 3,
+        marginTop: 10,
     },
     cardTitle: {
         fontSize: 18,

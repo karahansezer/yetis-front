@@ -86,6 +86,7 @@ const HomeScreen = () => {
 
     return (
         <View style={styles.container}>
+            
             <TouchableOpacity style={styles.addressContainer} onPress={() => navigation.navigate('AddAddress')}>
                 {selectedAddress ? (
                     <Text style={styles.addressText}>
@@ -96,7 +97,9 @@ const HomeScreen = () => {
                 ) : (
                     <Text style={styles.addressText}>No address selected. Tap to add.</Text>
                 )}
+            
             </TouchableOpacity>
+            <Text style={styles.questionText}>What kind of help do you need ? YETİŞ's business partners are with you!</Text>
             <FlatList
                 data={services}
                 renderItem={renderServiceItem}
@@ -113,6 +116,9 @@ const styles = StyleSheet.create({
         flex: 1,
         backgroundColor: '#f0f0f0',
     },
+    
+  
+    
     addressContainer: {
         backgroundColor: '#708DA1',
         padding: 15,
@@ -127,10 +133,22 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         color: 'white',
     },
+    questionText: {
+        fontSize: 18,                    
+        fontWeight: 'bold',
+        color: '#708DA1',                
+        marginTop: 30,                  
+        marginLeft: 20,                 
+        marginRight: 10,                
+        textShadowColor: 'rgba(0, 0, 0, 0.5)',   
+        textShadowOffset: { width: 2, height: 2 }, 
+        textShadowRadius: 5              
+    },
+    
     servicesList: {
         
         paddingHorizontal: 20,
-        paddingTop: 100,
+        paddingTop: 20,
     },
     serviceCard: {
         flex: 1,

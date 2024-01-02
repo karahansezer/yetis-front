@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
         color: '#708DA1',
         alignSelf: 'flex-start',
         marginLeft: 20,
-        marginBottom: 30,
+        marginBottom: 10,
     },
     input: {
         width: '100%',
